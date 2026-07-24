@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>¡Feliz Cumpleaños Mi Amolchitooo</title>
+  
+  <!-- Google Fonts: Elegant & Romantic Hierarchy -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&family=Sacramento&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="style.css" />
+  
+  <!-- CDN Dependencies: Three.js, GSAP & Canvas Confetti -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+  <!-- Global Audio Control Button -->
+  <button id="music-toggle" class="music-btn hidden" aria-label="Control de Música">
+    <span id="music-icon">🎵</span>
+  </button>
+
+  <!-- ESCENA 1: Intro Cinematográfica -->
+  <section id="scene-intro" class="scene active">
+    <div class="intro-container">
+      <p id="intro-text-1" class="intro-text">Hola Mi Bebeshitaaa🤎...</p>
+      <p id="intro-text-2" class="intro-text">Hoy es un dia muy especial en su vida...</p>
+      <p id="intro-text-3" class="intro-text">Así que le preparé una pequeña sorpresa...</p>
+      <button id="start-btn" class="primary-btn hidden">Comenzar</button>
+    </div>
+  </section>
+
+  <!-- ESCENA 2 & 3: Tarjeta Pop-Up Interactiva y 3D Canvas Container -->
+  <section id="scene-card" class="scene hidden">
+    
+    <!-- Three.js WebGL Canvas for 3D Pop-Up Cake & FX -->
+    <div id="webgl-container"></div>
+
+    <!-- UI Overlay: Interactive Card Pages -->
+    <div id="card-wrapper" class="card-wrapper">
+      <div id="book-card" class="book-card">
+        
+        <!-- Cover (Front) -->
+        <div class="card-page page-cover" id="page-cover">
+          <div class="paper-texture"></div>
+          <div class="gold-emboss-border"></div>
+          <div class="cover-content">
+            <div class="gold-seal">✨</div>
+            <h2 class="cover-title">Para usted</h2>
+            <p class="cover-subtitle">Haz clic para abrir</p>
+          </div>
+        </div>
+
+        <!-- Inside Left: Page 1 (Romantic Message) -->
+        <div class="card-page page-inside-left hidden" id="page-1">
+          <div class="paper-texture"></div>
+          <div class="page-content">
+            <h3 class="page-heading">Happy Birthday Mi Bebeshitaa Peshoshaaa</h3>
+            <div class="letter-body">
+              <p>!Feliz cumpleaños Mi Bebeshitaaa! 🤎🎉 Hoy es un día muy especial, porque el mundo celebra el nacimiento de una persona maravillosa que ha llenado mi vida de momentos inolvidables, increíbles y únicos. Quise preparar esta pequeña sorpresa para recordarte lo importante que es para mí y para desearle que este nuevo año de vida esté lleno de felicidad, salud, éxitos y sueños cumplidos. Espero que cada detalle de este regalo te saque una sonrisa, porque fue hecho con muchísimo cariño y pensando en ti, aunque parezca poco, hace falta más practica, lo shee JAJAJAJA, pero q el día de su cumpleaños sea único y si no le gusta cumplir años, yo voy hacer q le guste el día de su cumpleaños, porque es un día super importante en su vida, además hoy cumple 18 añotes, omg. Todavia me acuerdo cuando los cumpli yo, ayer mismo😜JAJAJAJAJAJAJAJ. No se crea, pero tiii, que licoo poder compartir a su lado un dia tan importante y si algún día estamos juntotes, faltan muchos regalotes, espereme y trabajó amor q le regaló muchotess🥺que licooooo, la voy a consentir muchoteee. Que papito Dios le de muchas bendiciones y que cumpla todas sus metas y todo lo q se proponga yo siempre voy a estar a su lado apoyandola muchisimoo en todo momento sin importar lo q pase siempre voy a estar para usted, La Amooo Muchisimoooo🤎🥺</p>
+              <p class="signature">Con todo mi amorsoteeee 🤎</p>
+            </div>
+            <div class="flower-decoration top-right">🌸</div>
+            <div class="flower-decoration bottom-left">🌸</div>
+            <button class="next-page-btn" data-next-page="2">Ver Fotografías ➔</button>
+          </div>
+        </div>
+
+        <!-- Inside Right: Page 2 (Photo Memories) -->
+        <div class="card-page page-inside-right hidden" id="page-2">
+          <div class="paper-texture"></div>
+          <div class="page-content">
+            <h3 class="page-heading">Fotitos de usted, me encanta, me fascina.🤎😭</h3>
+            <div class="photo-gallery">
+              <div class="photo-frame frame-1">
+                <img src="IMG1.jpg" alt="Recuerdo 1" />
+              </div>
+              <div class="photo-frame frame-2">
+                <img src="IMG3.jpg" alt="Recuerdo 2" />
+              </div>
+            </div>
+            <button class="next-page-btn" data-next-page="3">Continuar ➔</button>
+          </div>
+        </div>
+
+        <!-- Inside Center: Page 3 (Countdown & Pop-up Trigger) -->
+        <div class="card-page page-inside-center hidden" id="page-3">
+          <div class="paper-texture"></div>
+          <div class="page-content center-content">
+            <h3 class="page-heading">Esta muy happy?</h3>
+            <p class="sparkle-text">Prepare sus deseos</p>
+            <button id="reveal-cake-btn" class="gold-btn">¡Descubrir Pastel! 🎂</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- UI Overlay Controls for Candle Blow Out -->
+    <div id="candle-controls" class="controls-overlay hidden">
+      <p class="instruction-text">Sopla suavemente al micrófono o presiona el botón</p>
+      <button id="blow-btn" class="gold-btn glow">Apagar Velas 🕯️</button>
+    </div>
+  </section>
+
+  <!-- MODAL FINAL (PANTALLA DE CELEBRACIÓN) -->
+  <div id="final-modal" class="modal-overlay hidden">
+    <div class="envelope-wrapper">
+      <div class="letter-inside">
+        <h2>🎉 ¡Felices 18 mi bebeshitaaa Peshosha, que licooo! ❤️</h2>
+        
+        <!-- CONTENEDOR DE LOS 2 VIDEOS -->
+        <div id="surprise-video-container" class="videos-grid hidden">
+          <div class="video-card card-1">
+            <video class="surprise-video" loop muted playsinline>
+              <source src="Tom1.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-card card-2">
+            <video class="surprise-video" loop muted playsinline>
+              <source src="Tom2.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+
+        <p style="margin-top: 15px;">Que este nuevo año de vida esté lleno de risas, amor y momentos inolvidables. Que papito Dios la bendigaaa Muchisimooooo y le permita cumplir todos sus sueños, sus metas y todo lo que se proponga en la vida, poq usted es bien pro. prepare esa colotaa para cuando la vea🫦JAJAJJAJAJAJA no cierto. ok mañana💜</p>
+        <p class="final-signature">¡Para siempre juntotess, vamos a pasar muchos cumpleaños juntos a su lado, lo mejor del mundooo, La Amooo Muchisimooooo! 🎂✨</p>
+        
+        <button id="close-modal-btn" class="primary-btn" style="margin-top: 15px;">Cerrar ✨</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Elemento de Audio -->
+  <audio id="bg-music" src="musica.webm" loop></audio>
+
+  <!-- PANTALLA DE VIDEO FINAL DE CIERRE -->
+<div id="final-video-screen" class="hidden" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(5,5,5,0.95); z-index: 9999999; display: none; justify-content: center; align-items: center; flex-direction: column;">
+  <h2 style="color: #fff; font-family: 'Cormorant Garamond', serif; margin-bottom: 20px; font-size: 2rem; text-align: center;">La Amooo Muchoteee 🤎✨</h2>
+  <video id="closing-video" src="Tom3.mp4" controls playsinline style="max-width: 85%; max-height: 70vh; border-radius: 16px; box-shadow: 0 15px 40px rgba(0,0,0,0.8); border: 2px solid #e6ca65;"></video>
+  <button id="close-final-video-btn" class="primary-btn" style="margin-top: 25px;">Volver al inicio 🤎</button>
+</div>
+
+  <!-- Lógica Principal de JavaScript -->
+  <script src="script.js"></script>
+
+</body>
+</html>
